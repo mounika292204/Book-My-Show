@@ -49,17 +49,25 @@ Kubernetes NodePort service range.
  AmazonEC2FullAccess, AmazonEKS_CNI_Policy, AmazonEKSClusterPolicy, AmazonEKSWorkerNodePolicy, AWSCloudFormationFullAccess, IAMFullAccess
 
 Attach the below inline policy also for the same user
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": "eks:*",
-            "Resource": "*"
-        }
-    ]
-}
+{ 
+
+  "Version": "2012-10-17", 
+
+  "Statement": [ 
+
+    { 
+
+      "Effect": "Allow", 
+
+      "Action": "*", 
+
+      "Resource": "*" 
+
+    } 
+
+  ] 
+
+} 
 
 
 1.2.3. Create Access Keys for the user created
@@ -100,7 +108,7 @@ eksctl version
 1.3.4. Create EKS Cluster
 Execute the below commands as separate set
 (a)
-eksctl create cluster --name=kastro-eks \
+eksctl create cluster --name=mounika-eks \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
                       --version=1.30 \
@@ -112,7 +120,7 @@ Goto EKS Console and verify the cluster.
 (b)
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
-    --cluster kastro-eks \
+    --cluster mounika-eks \
     --approve
 
 The above command is crucial when setting up an EKS cluster because it enables IAM roles for service accounts (IRSA)
@@ -124,7 +132,7 @@ Without this, these services will not be able to access AWS resources securely.
 (c)
 Before executing the below command, in the 'ssh-public-key' keep the  '<PEM FILE NAME>' (dont give .pem. Just give the pem file name) which was used to create Jenkins Server
 
-eksctl create nodegroup --cluster=kastro-eks \
+eksctl create nodegroup --cluster=mounika-eks \
                        --region=us-east-1 \
                        --name=node2 \
                        --node-type=t3.medium \
@@ -133,7 +141,7 @@ eksctl create nodegroup --cluster=kastro-eks \
                        --nodes-max=4 \
                        --node-volume-size=20 \
                        --ssh-access \
-                       --ssh-public-key=Kastro \
+                       --ssh-public-key=mounika \
                        --managed \
                        --asg-access \
                        --external-dns-access \
@@ -816,4 +824,5 @@ Click on Dashboards in the left pane, you can see both the dashboards you have j
 
 
 Final:
+
 Delete all the resources created
